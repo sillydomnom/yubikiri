@@ -5,6 +5,7 @@ topics:
   - state-management
   - mvvm
   - yubikiri
+repository: https://github.com/sillydomnom/yubikiri
 
 version: 0.1.0
 
