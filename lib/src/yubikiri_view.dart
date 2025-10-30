@@ -38,6 +38,9 @@ abstract class YubikiriView<T extends Yubikiri<J>, J> extends StatefulWidget {
   @internal
   @mustCallSuper
   State<YubikiriView> createState() => _YubikiriViewState<T, J>();
+  
+  @mustCallSuper
+  void onModelChange(BuildContext context, J oldModel, J newModel) {}
 
   Widget build(BuildContext context, T viewModel);
 }
@@ -83,8 +86,10 @@ class _YubikiriViewState<T extends Yubikiri<J>, J> extends State<YubikiriView> {
     }
 
     _yubikiri = testProvider.yubikiri;
+    model = _yubikiri.model;
 
     _modelSubscription = _yubikiri.modelListenable.listen((modelListenable) {
+      widget.onModelChange(context, this.model, modelListenable.value);
       setState(() {
         this.model = modelListenable.value;
       });
@@ -114,6 +119,7 @@ class _YubikiriViewState<T extends Yubikiri<J>, J> extends State<YubikiriView> {
     model = _yubikiri.model;
 
     _modelSubscription = _yubikiri.modelListenable.listen((modelListenable) {
+      widget.onModelChange(context, this.model, modelListenable.value);
       setState(() {
         this.model = modelListenable.value;
       });
